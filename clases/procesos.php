@@ -13,7 +13,9 @@
         }
 
         /**
-         * Hace un select de un usuario especifico, devuelve una fila con el campo de contraseña.
+         * Selecciona lo especificado por el sistema.
+         * @param customSQL Permite introducir nombres de columna
+         * @param where Parametro que permite introducir un WHERE statement.
         */
         function seleccionar($customSQL=null, $where = null) {
 
