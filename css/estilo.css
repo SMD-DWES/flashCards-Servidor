@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #435165;
+}
+
+#cajaPrincipal {
+    margin: auto;
+    width: 300px;
+    transform: translate(0,50%);
+
+}
+
+
+#cajaPrincipal p {
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+#cajaPrincipal p span {
+    font-weight: bold;
+}
+
+#cajaLogin form {
+
+    display: flex;
+    flex-wrap: wrap;
+
+
+    justify-content: center;
+    padding-top: 20px;
+
+    width: 400px;
+    height: 200px;
+    background-color: white;
+
+}
+
+#cajaLogin form h2 {
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    border-bottom: 1px solid #dee0e4;
+}
+
+#cajaLogin form label {
+    display: flex;
+    float: left;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 24px;
+    background-color: #3274d6;
+    color: #ffffff;
+    margin-top: 15px;
+
+}
+
+#cajaLogin form input[type="password"], input[type="text"] {
+    float: right;
+
+    border: 2px solid #dee0e4;
+    padding-left: 3px;
+
+    width: 300px;
+    height: 20px;
+    margin-top: 15px;
+}
+
+#cajaLogin form input[type="submit"] {
+
+    cursor: pointer;
+    color: white;
+    width: 50%;
+
+    border: 0;
+    background-color: rgb(66, 131, 235);
+    position: relative;
+    bottom: 5px;
+}
+
+#cajaLogin form input[type="submit"]:hover {
+    color: white;
+    background-color: rgb(66, 131, 235);
+
+}

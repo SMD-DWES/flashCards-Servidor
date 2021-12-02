@@ -7,6 +7,11 @@
     */
     require __DIR__."/clases/procesos.php";
 
+    session_start();
+    if(!isset($_SESSION["id"])) { header("Location: login.php"); }
+
+    echo "<a href='logout.php'>Desloguearse</a>";
+
     //FORMULARIO QUE PIDA LOS PUNTOS A INSERTAR
     if(isset($_POST["enviar"])) {
 

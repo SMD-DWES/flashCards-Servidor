@@ -17,15 +17,10 @@
          * @param customSQL Permite introducir nombres de columna
          * @param where Parametro que permite introducir un WHERE statement.
         */
-        function seleccionar($customSQL=null, $where = null) {
+        function seleccionar($customSQL) {
 
-            //Si no se envia ningun parametro devuelve todo (select *)
-            if($where == null)
-                $sql = "SELECT * FROM partidas";
-            else {//Si no devuelve con el where especificado. 
-                $sql = "SELECT $customSQL FROM partidas ".$where;
-                //echo 'ee: '.$sql;
-            }
+            //SQL custom especificado en param
+            $sql = $customSQL;
 
             $consulta = $this->consultar($sql);
             if($consulta) 
