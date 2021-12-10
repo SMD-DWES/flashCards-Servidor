@@ -5,12 +5,37 @@
         @description: BackEnd del minijuego de flashcards. 
         Se encarga de insertar los puntos en el top 10 puntuaciones de la B.D.
     */
+    
     require __DIR__."/clases/procesos.php";
+    require_once __DIR__ . "/estructura/maquetacion.php";
+
+    //Versión 1 se elige un minijuego (desplegable)
+    //Versión 2 se elige varios minijuegos en checkboxes
 
     session_start();
+    //Comprobamos que tenga la sesión iniciada
     if(!isset($_SESSION["id"])) { header("Location: login.php"); }
 
+    //Botón desloguearse
     echo "<a href='logout.php'>Desloguearse</a>";
+
+    //CARGAR HTML
+    echo '<html>';
+    head("Puntos");
+    nav();
+    main("puntuacion");
+    echo '</html>';
+    
+
+    //Comprobar si es la primera vez que entra
+    //if(isset($_SESSION["firstLogin"])) {
+        echo "
+        <select name='' >
+            <option value=''>e</option>
+        </select>
+        ";
+    //}
+
 
     //FORMULARIO QUE PIDA LOS PUNTOS A INSERTAR
     if(isset($_POST["enviar"])) {
@@ -73,16 +98,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Puntos</title>
-    </head>
     <body>
-        <form action="#" method="post">
-            <input type="number" name="iPuntos" id="">
-            <input type="submit" value="Enviar" name="enviar[]">
-        </form>
+        
     </body>
 </html>
