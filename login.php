@@ -1,23 +1,26 @@
 <?php
     require_once __DIR__."/clases/procesos.php";
+    function loginCuenta() {
     if(isset($_POST["login"])) {
-        $user = $_POST["username"];
-        $pw = $_POST["password"];
+            $user = $_POST["username"];
+            $pw = $_POST["password"];
 
-        $db = new Procesos();
+            $db = new Procesos();
 
-        $resultLogin = $db->seleccionar("SELECT * FROM usuarios WHERE nombre='$user' AND pw='$pw' LIMIT 1");
+            $resultLogin = $db->seleccionar("SELECT * FROM usuarios WHERE nombre='$user' AND pw='$pw' LIMIT 1");
 
-        $filaLogin = $db->selectArray($resultLogin,MYSQLI_ASSOC);
+            $filaLogin = $db->selectArray($resultLogin,MYSQLI_ASSOC);
 
-        if($db->num_Filas($resultLogin) > 0) {
-            session_start();
-            $_SESSION["id"] = $filaLogin["idUsuario"];
-            $_SESSION["tipoPerfil"] = $filaLogin["tipoPerfil"];
+            if($db->num_Filas($resultLogin) > 0) {
+                session_start();
+                $_SESSION["id"] = $filaLogin["idUsuario"];
+                $_SESSION["tipoPerfil"] = $filaLogin["tipoPerfil"];
+                $_SESSION["firstLogin"] = false;
 
-            header("Location: index.php");
-        } else {
-            echo 'Usuario o contraseña incorrectos';
+                header("Location: index.php");
+            } else {
+                echo 'Usuario o contraseña incorrectos';
+            }
         }
     }
 ?>
@@ -43,7 +46,11 @@
                     <label for="password"><i class="fas fa-lock"></i></label>
                     <input type="password" name="password" id="password" placeholder="Contraseña" required>
                     <input type="submit" value="Iniciar sesión" name="login[]">
+                    <span>¿No Tienes una cuenta? Click <a href="registro.php"> aquí</a></span>
                 </form>
+                <?php
+                    loginCuenta();
+                ?>
             </div>
         </div>
     </body>

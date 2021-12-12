@@ -33,6 +33,21 @@
         /**
          * Inserta los datos de una nueva puntuación
         */
+        function crearCuenta($nombre,$apellido,$correo,$pw,$tipoPerfil=0) {
+
+            $sql = "INSERT INTO usuarios(nombre,apellido,correo,pw) VALUES ('$nombre','$apellido', '$correo', '$pw');";
+            //INSERT INTO usuarios(nombre,apellido,correo,pw) VALUES ('aa', 'ee', 'ee', '1234');
+
+            $consulta = $this->consultar($sql);
+            if($consulta)
+                return $this->mysql->insert_id; //Devolvemos la id.
+            else
+                return $this->mysql->errno;
+        }
+
+        /**
+         * Inserta los datos de una nueva puntuación
+        */
         function insertarDatos($idUsuario,$idMinijuego,$puntuacion) {
 
             $sql = "INSERT INTO partidas(idUsuario, idMinijuego, puntuacion) VALUES ($idUsuario,$idMinijuego,$puntuacion)";

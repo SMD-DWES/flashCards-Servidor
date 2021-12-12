@@ -16,25 +16,53 @@
     //Comprobamos que tenga la sesión iniciada
     if(!isset($_SESSION["id"])) { header("Location: login.php"); }
 
+
     //Botón desloguearse
     echo "<a href='logout.php'>Desloguearse</a>";
 
-    //CARGAR HTML
+    //Carga el HTML
     echo '<html>';
     head("Puntos");
     nav();
     main("puntuacion");
     echo '</html>';
     
+    //revisar
+    function firstLogin() {
 
-    //Comprobar si es la primera vez que entra
-    //if(isset($_SESSION["firstLogin"])) {
-        echo "
-        <select name='' >
-            <option value=''>e</option>
-        </select>
-        ";
-    //}
+        $db = new Procesos();
+
+        //Comprobar si es la primera vez que entra
+        if(isset($_SESSION["firstLogin"])) {
+
+            //Select de minijuegos
+            $selMinijuegos = $db->seleccionar("SELECT * FROM minijuegos");
+
+            //Creación de los desplegables
+            echo 'Bienvenido por primera vez!';
+            echo "
+            <select name='listaMG'>
+                <option value='0'>Selecciona un minijuego</option>
+            ";
+            while($fila = $db->selectArray($selMinijuegos,MYSQLI_ASSOC)) {
+                echo "<option value='$fila[idMinijuego]'>" . $fila["nombre"] . "</option>";
+            }
+            echo "</select>";
+
+            //Creación de los checkboxes
+            while($fila = $db->selectArray($selMinijuegos,MYSQLI_ASSOC)) {
+                //print_r($fila);
+                echo 
+                "
+                    <label for='$fila[idMinijuego]'> $fila[nombre]</label>
+                    <input type='checkbox' id='$fila[idMinijuego]' name='$fila[idMinijuego]' value='$fila[nombre]' />
+                ";
+            }
+
+
+        }
+
+    }
 
 
     //FORMULARIO QUE PIDA LOS PUNTOS A INSERTAR
@@ -50,11 +78,8 @@
         //Seleccionamos el top 10 de partidas, pero con la puntuación más baja
         $minPuntos = $bd->seleccionar("idPartida, puntuacion","WHERE puntuacion = (SELECT MIN(puntuacion) FROM partidas)");
 
-        //$fila = $bd->selectArray($puntosOk,MYSQLI_ASSOC);//quitar
-
         $filaPuntosMin = $bd->selectArray($minPuntos,MYSQLI_ASSOC);
 
-        //print_r($fila);
 
         //Boolean que indica si has sido aceptado o no.
         $aceptado = false;
@@ -96,9 +121,3 @@
         echo '<br>Tus puntos: '.$puntos;
     }
 ?>
-<!DOCTYPE html>
-<html lang="es">
-    <body>
-        
-    </body>
-</html>

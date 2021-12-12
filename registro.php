@@ -1,23 +1,33 @@
 <?php
     require_once __DIR__."/clases/procesos.php";
-    if(isset($_POST["login"])) {
-        $user = $_POST["username"];
-        $pw = $_POST["password"];
+    function crearCuenta() {
+        if(isset($_POST["crear"])) {
+            //Variables locales
+            $user = $_POST["username"];
+            $surname = $_POST["surname"];
+            $email = $_POST["email"];
+            $pw = $_POST["password"];
+            $pw2 = $_POST["password2"];
 
-        $db = new Procesos();
+            //Comprobación contraseñas
+            if($pw == $pw2) {
 
-        $resultLogin = $db->seleccionar("SELECT * FROM usuarios WHERE nombre='$user' AND pw='$pw' LIMIT 1");
+                $db = new Procesos();
 
-        $filaLogin = $db->selectArray($resultLogin,MYSQLI_ASSOC);
+                $insertDatos = $db->crearCuenta($user, $surname, $email, $pw);
+                //echo $insertDatos;
 
-        if($db->num_Filas($resultLogin) > 0) {
-            session_start();
-            $_SESSION["id"] = $filaLogin["idUsuario"];
-            $_SESSION["tipoPerfil"] = $filaLogin["tipoPerfil"];
+                //Sesiones
+                session_start();
+                $_SESSION["id"] = $insertDatos;
+                $_SESSION["firstLogin"] = true;
+                //$_SESSION["tipoPerfil"] = $filaLogin["tipoPerfil"];
 
-            header("Location: index.php");
-        } else {
-            echo 'Usuario o contraseña incorrectos';
+                //Reedirigimos a la página principal.
+                header("Location: index.php");
+            } else {
+                echo 'Las contraseñas NO coinciden';
+            }
         }
     }
 ?>
@@ -41,15 +51,22 @@
                     <label for="username"><i class="fas fa-user"></i></label>
                     <input type="text" name="username" id="username" placeholder="Nombre" required>
                     <label for="username"><i class="fas fa-user"></i></label>
-                    <input type="text" name="username" id="username" placeholder="Apellido" required>
+                    <input type="text" name="surname" id="surname" placeholder="Apellido" required>
 
                     <label for="username"><i class="fas fa-envelope"></i></label>
                     <input type="text" name="email" id="email" placeholder="Correo" required>
 
                     <label for="password"><i class="fas fa-lock"></i></label>
                     <input type="password" name="password" id="password" placeholder="Contraseña" required>
+                    <label for="password"><i class="fas fa-lock"></i></label>
+                    <input type="password" name="password2" id="password2" placeholder="Repetir contraseña" required>
                     <input type="submit" value="Crear cuenta" name="crear[]">
+                    
+                    <span>¿Tienes una cuenta? Click <a href="login.php"> aquí</a></span>
                 </form>
+                <?php
+                    crearCuenta();
+                ?>
             </div>
         </div>
     </body>
