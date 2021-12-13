@@ -41,7 +41,11 @@
 
 
         /**
-         * Devuelve la fila usando un fetchArray
+         * Devuelve una fila en un array del tipo especificado
+         * @param result -> Result set, del mysql_query
+         * @param tipo tipo de resulttype (ASSOC, NUM, BOTH)
+         * @return -> Devuelve un array, ó null si no hay más filas, devolverá false también
+         * si se produjo un error.
          */
         function selectArray($result, $tipo) {
             return $result->fetch_array($tipo);

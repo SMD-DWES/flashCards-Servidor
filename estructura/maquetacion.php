@@ -32,6 +32,8 @@ function main($tipo=null) {
 
     switch ($tipo) {
         case 'puntuacion':
+            //Botón desloguearse
+            echo "<a href='logout.php'>Desloguearse</a>";
             echo "
                 <form action='#' method='post'>
                     <input type='number' name='iPuntos'>
