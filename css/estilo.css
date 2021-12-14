@@ -18,21 +18,21 @@ body {
     ===========================
 
 */
-#cajaRegister {
+#cajaMainRegister {
     margin: auto;
     width: 300px;
 
 }
 
 
-#cajaRegister p {
+#cajaMainRegister p {
     font-size: 30px;
     font-family: 'Roboto', sans-serif;
     text-align: center;
     padding-bottom: 5px;
 }
 
-#cajaRegister p span {
+#cajaMainRegister p span {
     font-weight: bold;
 }
 
@@ -114,6 +114,98 @@ body {
     position: relative;
     top: 31px;
     right: 90px;
+}
+
+/*
+    ===========================
+            CAJA PREFERENCIAS.
+    ===========================
+
+*/
+#cajaPreferencias {
+    margin: auto;
+    width: 300px;
+
+}
+
+
+#cajaPreferencias p {
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+#cajaPreferencias p span {
+    font-weight: bold;
+}
+
+#cajaPreferencias form {
+    display: flex;
+    flex-wrap: wrap;
+
+
+    justify-content: center;
+    padding-top: 20px;
+
+    width: 400px;
+
+    height: var(--altoRegister);
+    background-color: white;
+
+}
+
+
+#cajaPreferencias form h2 {
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    border-bottom: 1px solid #dee0e4;
+}
+
+#cajaPreferencias form label {
+    display: flex;
+    float: left;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+
+    flex: 50%;
+
+    width: 50px;
+    height: 24px;
+    /*background-color: #3274d6;*/
+    color: black;
+    margin-top: 15px;
+}
+
+#cajaPreferencias form input[type="checkbox"] {
+    float: right;
+    border: 2px solid #dee0e4;
+    padding-left: 3px;
+
+    width: 30px;
+    height: 15px;
+    margin-top: 15px;
+}
+
+#cajaPreferencias form input[type="submit"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    width: 50%;
+
+    border: 0;
+    background-color: rgb(66, 131, 235);   
+}
+
+#cajaPreferencias form input[type="submit"]:hover {
+    clear: both;
+    color: white;
+    background-color: rgb(235, 170, 66);
+
 }
 
 /*

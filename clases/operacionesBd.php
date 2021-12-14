@@ -2,7 +2,7 @@
     /**
      * @author Sergio Matamoros Delgado
     */
-    require_once "config_bd.php";
+    require_once dirname(__DIR__, 1)."/config_bd.php";
 
     class OperacionesBd {
 

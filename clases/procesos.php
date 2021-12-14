@@ -2,7 +2,7 @@
     /**
      * @author Sergio Matamoros Delgado
     */
-    require_once "operacionesBd.php";
+    require_once __DIR__."/operacionesBd.php";
     class Procesos extends OperacionesBd {
         //Vars
         private $mysql = null;
