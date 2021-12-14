@@ -1,4 +1,10 @@
 <?php
+    /*
+        @author: Sergio Matamoros Delgado <smatamorosdelgado.guadalupe@alumnado.fundacionloyola.net>
+        @license: GPL v3 2021
+        @description: BackEnd del minijuego de flashcards. 
+        Permite iniciar sesión en el sitio web.
+    */
     require_once __DIR__."/clases/procesos.php";
     function loginCuenta() {
     if(isset($_POST["login"])) {

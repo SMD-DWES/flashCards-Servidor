@@ -1,4 +1,10 @@
 <?php
+    /*
+        @author: Sergio Matamoros Delgado <smatamorosdelgado.guadalupe@alumnado.fundacionloyola.net>
+        @license: GPL v3 2021
+        @description: BackEnd del minijuego de flashcards. 
+        Permite registrarte en el sitio web.
+    */
     require_once __DIR__."/clases/procesos.php";
     function crearCuenta() {
         if(isset($_POST["crear"])) {
@@ -8,6 +14,19 @@
             $email = $_POST["email"];
             $pw = $_POST["password"];
             $pw2 = $_POST["password2"];
+
+            /* SOLO FUNCIONA EN PHP 8
+            if(str_starts_with($email, "@fundacionloyola.net")) {
+                echo 'EMPIEZA';
+            }*/
+            /*if(strstr($email,"@") == "@fundacionloyola.net") {
+                echo 'a';
+            }*/
+            $cache = null;
+            for($i=0;$i<strlen($email);$i++) {
+                if($email[$i] == "@") $cache.= substr($email,$i);
+            }
+            if($cache == "@fundacionloyola.net") echo "DOMINIO VALIDO";
 
             //Comprobación contraseñas
             if($pw == $pw2) {
@@ -37,7 +56,11 @@
                     header("Location: estructura/preferencias.php");
                 }
             } else {
-                echo 'Las contraseñas NO coinciden';
+                echo '
+                <div class="isa_error">
+                    <i class="fa fa-times-circle"></i>
+                    Se ha producido un error, las contraseñas no coinciden.
+                </div>';
             }
         }
     }

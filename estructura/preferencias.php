@@ -1,4 +1,10 @@
 <?php
+    /*
+        @author: Sergio Matamoros Delgado <smatamorosdelgado.guadalupe@alumnado.fundacionloyola.net>
+        @license: GPL v3 2021
+        @description: BackEnd del minijuego de flashcards. 
+        Se encarga de que el usuario pueda elegir que tipo de minijuegos le gusta más.
+    */
     require_once dirname(__DIR__, 1)."../clases/procesos.php";
     function preferencias() {
         $db = new Procesos();

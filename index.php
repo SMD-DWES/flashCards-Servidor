@@ -3,7 +3,7 @@
         @author: Sergio Matamoros Delgado <smatamorosdelgado.guadalupe@alumnado.fundacionloyola.net>
         @license: GPL v3 2021
         @description: BackEnd del minijuego de flashcards. 
-        Se encarga de insertar los puntos en el top 10 puntuaciones de la B.D.
+        Inicio principal de la administración de FlashCards
     */
     
     require __DIR__."/clases/procesos.php";
