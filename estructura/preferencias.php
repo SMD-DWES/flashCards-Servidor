@@ -13,8 +13,8 @@
         foreach ($selMinijuegos as $valor) {
             echo
             "
-                <label for='$valor[idMinijuego]'> $valor[nombre]</label>
-                <input type='checkbox' id='$valor[idMinijuego]' name='minijuegoChx[]' value='$valor[nombre]' />
+                <label for='$valor[nombre]'> $valor[nombre]</label>
+                <input type='checkbox' id='$valor[nombre]' name='minijuegoChx[]' value='$valor[idMinijuego]' />
             ";
         }
         echo "
@@ -23,15 +23,24 @@
         ";
     }
 
-    if(isset($_POST["sendPreferencias"])) {
+    
 
+    if(isset($_POST["sendPreferencias"])) {
         if(isset($_POST["minijuegoChx"])) {
+
+           //Iniciamos la sesión para recoger la id del usuario.
+            session_start();
+            $idUser = $_SESSION["id"];
+
+            $db = new Procesos();
+            
+
             foreach ($_POST["minijuegoChx"] as $valor) {
-                echo ' Has seleccionado: '. $valor;
+                $db->insertarDatos("INSERT INTO preferencias(idUsuario, idMinijuego) VALUES($idUser, $valor);");
             }
 
             //Reedirigir al index.
-
+            header("Location: ../index.php");
         }
     }
 ?>

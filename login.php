@@ -14,6 +14,7 @@
             if($db->num_Filas($resultLogin) > 0) {
                 session_start();
                 $_SESSION["id"] = $filaLogin["idUsuario"];
+                $_SESSION["userName"] = $user;
                 $_SESSION["tipoPerfil"] = $filaLogin["tipoPerfil"];
                 $_SESSION["firstLogin"] = false;
 

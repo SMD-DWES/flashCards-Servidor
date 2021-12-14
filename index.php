@@ -22,103 +22,8 @@
     nav();
     main("puntuacion");
     echo '</html>';
-    
-    /**
-     * Función que se ejecutará la primera vez que el usuario entre en la página
-     * para las preferencias de los minijuegos.
-     */
-    function firstLogin() {
 
-        $db = new Procesos();
-
-        //Comprobar si es la primera vez que entra
-        if(isset($_SESSION["firstLogin"])) {
-
-            //Select de minijuegos
-            $selMinijuegos = $db->seleccionar("SELECT * FROM minijuegos");
-            
-
-            //Creación de los desplegables
-            echo 'Bienvenido por primera vez!<br>';
-
-            //Creación de una variable de "cache" para poder utilizar 2 veces el resultado
-            //sin volver a tener que hacer la consulta 2 veces.
-            $cache = array();
-
-            //Creación del select con los valores recogidos de la B.D
-            echo 
-            "
-            <form action='#' method='POST'>
-                <select name='seleccionMG[]'>
-                    <option name='minijuego' value='0'>Selecciona un minijuego</option>
-            ";
-
-            while($fila = $db->selectArray($selMinijuegos, MYSQLI_ASSOC)) {
-
-                //Almacenamos la fila en otra array para poder recorrerla sin tener que empezar de 0 otra vez.
-                $cache[] = $fila;
-
-                echo "<option name='minijuego' value='$fila[idMinijuego]'>$fila[nombre]</option>";
-                
-            }
-            echo "
-                </select>
-                <input type='submit' value='Enviar' name='sendPreferencias'>
-            </form>
-            ";
-
-            echo '<br><br>';
-
-            //Creación de los checkboxes
-
-            echo "
-            <form action='#' method='POST'>
-            ";
-
-            // *-- Explicación: --* //
-            //Utilizamos el cache para obtener los valores sin volver a hacer un query.
-            //Esta es la opción con mejor rendimiento, y de hecho si se hiciera un selectArray como el
-            //de arriba no funcionaria, ya que los datos del IO obtenidos del query seran tratados como STREAM,
-            //por lo que no se podrá volver a empezar de 0 sin volver a ejecutar el query.
-            //Si devolviera muchas filas (como 1000 por ejemplo), saldría más rentable volver a ejecutar
-            //el query.
-            foreach ($cache as $valor) {
-                echo 
-                "
-                    <label for='$valor[idMinijuego]'> $valor[nombre]</label>
-                    <input type='checkbox' id='$valor[idMinijuego]' name='minijuegoChx' value='$valor[nombre]' />
-                ";
-            }
-            echo "
-                <input type='submit' value='Enviar' name='sendPreferencias'>
-            </form>
-            ";
-        }
-    }
-
-    if(isset($_POST["sendPreferencias"])) {
-        //Una vez rellenado no te volverá a salir las preferencias.
-        //$_SESSION["firstLogin"] = false;
-
-        //Select
-        if(!empty($_POST["seleccionMG"])) {
-
-            foreach ($_POST["seleccionMG"] as $valor) {
-                echo $valor . '<br>';
-            }
-        } else {
-            echo 'Error, seleccione un valor de la lista.';
-        }
-
-        if(isset($_POST["minijuegoChx"])) {
-            echo 'Has seleccionado: '. $_POST["minijuegoChx"];
-        }
-
-
-
-        print_r($_POST["sendPreferencias"]);
-    }
-
+    echo "<h2>¡Bienvenido, $_SESSION[userName]!</h2>";
 
     //FORMULARIO QUE PIDA LOS PUNTOS A INSERTAR
     if(isset($_POST["enviar"])) {
@@ -146,7 +51,7 @@
             echo '[debug, añado una nueva puntuación]';
 
             //Insertamos en la B.D los puntos nuevos.
-            $bd->insertarDatos(1,1,$puntos);
+            $bd->insertarDatos("INSERT INTO partidas(idUsuario, idMinijuego, puntuacion) VALUES (1,1,$puntos)");
 
             //Establecemos que el usuario ha entrado en el top10
             $aceptado = true;

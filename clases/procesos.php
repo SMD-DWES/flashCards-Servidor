@@ -48,14 +48,12 @@
         /**
          * Inserta los datos de una nueva puntuación
         */
-        function insertarDatos($idUsuario,$idMinijuego,$puntuacion) {
+        function insertarDatos($sql) {
 
-            $sql = "INSERT INTO partidas(idUsuario, idMinijuego, puntuacion) VALUES ($idUsuario,$idMinijuego,$puntuacion)";
+            //$sql = "INSERT INTO partidas(idUsuario, idMinijuego, puntuacion) VALUES ($idUsuario,$idMinijuego,$puntuacion)";
 
             $consulta = $this->consultar($sql);
-            if($consulta)
-                return 'Datos añadidos correctamente';
-            else
+            if(!$consulta)
                 return $this->mysql->errno;
         }
 

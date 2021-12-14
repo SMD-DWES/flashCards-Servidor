@@ -40,7 +40,6 @@ function main($tipo=null) {
                     <input type='submit' value='Enviar' name='enviar[]'>
                 </form>
             ";
-            firstLogin();
             break;
         
         default:

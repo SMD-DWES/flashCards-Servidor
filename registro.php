@@ -17,15 +17,25 @@
                 $insertDatos = $db->crearCuenta($user, $surname, $email, $pw);
                 //echo $insertDatos;
 
-                //Sesiones
-                session_start();
-                $_SESSION["id"] = $insertDatos;
-                $_SESSION["firstLogin"] = true;
-                //$_SESSION["tipoPerfil"] = $filaLogin["tipoPerfil"];
+                //Comprobaciones...
+                if($insertDatos == 1062) {
+                    echo '
+                    <div class="isa_error">
+                        <i class="fa fa-times-circle"></i>
+                        Se ha producido un error, ya existe una cuenta con ese nombre o correo.
+                    </div>';
+                } else {
+                    //Sesiones
+                    session_start();
+                    $_SESSION["id"] = $insertDatos;
+                    $_SESSION["userName"] = $user;
+                    $_SESSION["firstLogin"] = true;
+                    //$_SESSION["tipoPerfil"] = $filaLogin["tipoPerfil"];
 
-                //Reedirigimos a la página principal.
-                //header("Location: index.php");
-                header("Location: estructura/preferencias.php");
+                    //Reedirigimos a la página principal.
+                    //header("Location: index.php");
+                    header("Location: estructura/preferencias.php");
+                }
             } else {
                 echo 'Las contraseñas NO coinciden';
             }
