@@ -15,6 +15,7 @@
             $pw = $_POST["password"];
             $pw2 = $_POST["password2"];
 
+            //Diferentes métodos para comprobar el email...
             /* SOLO FUNCIONA EN PHP 8
             if(str_starts_with($email, "@fundacionloyola.net")) {
                 echo 'EMPIEZA';
@@ -26,41 +27,50 @@
             for($i=0;$i<strlen($email);$i++) {
                 if($email[$i] == "@") $cache.= substr($email,$i);
             }
-            if($cache == "@fundacionloyola.net") echo "DOMINIO VALIDO";
 
-            //Comprobación contraseñas
-            if($pw == $pw2) {
+            //Check correo
+            if($cache == "@fundacionloyola.net") {
 
-                $db = new Procesos();
+                //Comprobación contraseñas
+                if($pw == $pw2) {
 
-                $insertDatos = $db->crearCuenta($user, $surname, $email, $pw);
-                //echo $insertDatos;
+                    $db = new Procesos();
 
-                //Comprobaciones...
-                if($insertDatos == 1062) {
+                    $insertDatos = $db->crearCuenta($user, $surname, $email, $pw);
+                    //echo $insertDatos;
+
+                    //Comprobaciones...
+                    if($insertDatos == 1062) {
+                        echo '
+                        <div class="isa_error">
+                            <i class="fa fa-times-circle"></i>
+                            Se ha producido un error, ya existe una cuenta con ese nombre o correo.
+                        </div>';
+                    } else {
+                        //Sesiones
+                        session_start();
+                        $_SESSION["id"] = $insertDatos;
+                        $_SESSION["userName"] = $user;
+                        $_SESSION["firstLogin"] = true;
+                        //$_SESSION["tipoPerfil"] = $filaLogin["tipoPerfil"];
+
+                        //Reedirigimos a la página principal.
+                        //header("Location: index.php");
+                        header("Location: estructura/preferencias.php");
+                    }
+                } else {
                     echo '
                     <div class="isa_error">
                         <i class="fa fa-times-circle"></i>
-                        Se ha producido un error, ya existe una cuenta con ese nombre o correo.
+                        Se ha producido un error, las contraseñas no coinciden.
                     </div>';
-                } else {
-                    //Sesiones
-                    session_start();
-                    $_SESSION["id"] = $insertDatos;
-                    $_SESSION["userName"] = $user;
-                    $_SESSION["firstLogin"] = true;
-                    //$_SESSION["tipoPerfil"] = $filaLogin["tipoPerfil"];
-
-                    //Reedirigimos a la página principal.
-                    //header("Location: index.php");
-                    header("Location: estructura/preferencias.php");
                 }
             } else {
                 echo '
-                <div class="isa_error">
-                    <i class="fa fa-times-circle"></i>
-                    Se ha producido un error, las contraseñas no coinciden.
-                </div>';
+                    <div class="isa_error">
+                        <i class="fa fa-times-circle"></i>
+                        Se ha producido un error, el email no es válido.
+                    </div>';
             }
         }
     }
