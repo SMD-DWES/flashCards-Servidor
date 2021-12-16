@@ -28,6 +28,14 @@
                 if($email[$i] == "@") $cache.= substr($email,$i);
             }
 
+            if(empty($user) || empty($surname) || empty($email) || empty($pw) || empty($pw2)) {
+                echo '
+                    <div class="isa_error">
+                        <i class="fa fa-times-circle"></i>
+                        Se ha producido un error, hay algunos campos vacios.
+                    </div>';
+            }
+
             //Check correo
             if($cache == "@fundacionloyola.net") {
 
