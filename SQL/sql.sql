@@ -1,3 +1,9 @@
+DROP DATABASE IF EXIST registrominijuegos;
+
+CREATE DATABASE registrominijuegos;
+
+USE registrominijuegos;
+
 CREATE TABLE Minijuegos(
     idMinijuego smallint NOT NULL AUTO_INCREMENT,
     nombre varchar(50) NOT NULL,

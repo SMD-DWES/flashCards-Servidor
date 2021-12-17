@@ -46,7 +46,13 @@
                             <i class="fa fa-times-circle"></i>
                             Se ha producido un error, ya existe una cuenta con ese nombre o correo.
                         </div>';
-                    } else {
+                    } else if($insertDatos == 1406) {
+                        echo '
+                        <div class="isa_error">
+                            <i class="fa fa-times-circle"></i>
+                            Se ha producido un error,la longitud de alguno de los campos es superior a la requerida.
+                        </div>';
+                    }else {
                         //Sesiones
                         session_start();
                         $_SESSION["id"] = $insertDatos;
@@ -119,7 +125,7 @@
                 <form action="#" method="post">
                     <h2>Selección de preferencias</h2>
                     <?php
-                        preferencias();
+                        //preferencias();
                     ?>
                 </form>
             </div>
